@@ -1,11 +1,18 @@
+require('dotenv').config()
+
 const express = require('express')
 
 const app = express()
 
-app.get('/', (req, res) => {
-    req.json({msg : 'welcome mother fucker'})
+app.use((req, res, next) => {
+    console.log(req.path, req.method);
+    next()
 })
 
-app.listen(4000, ()=>{
-    console.log('listen');
+app.get('/', (req, res) => {
+    res.json({msg : 'welcome mother fucker'})
+})
+
+app.listen(process.env.PORT, ()=>{
+    console.log('listen', process.env.PORT);
 })
